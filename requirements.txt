@@ -1,0 +1,2 @@
+# Install entrypoint for CI and tools that expect `requirements.txt` at repo root.
+-r requirements-quantumsafe.txt

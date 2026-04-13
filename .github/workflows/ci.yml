@@ -1,0 +1,67 @@
+# Build, publish static web artifact, and run security audits (supply chain).
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  web-build-and-audit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: quantumsafe-web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: quantumsafe-web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: npm audit (fail on high+)
+        run: npm audit --audit-level=high
+        continue-on-error: false
+
+      - name: Production build
+        run: npm run build
+
+      - name: Upload web dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quantumsafe-web-dist
+          path: quantumsafe-web/dist
+          if-no-files-found: error
+
+  python-audit-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install QuantumSafe deps
+        run: pip install -r requirements.txt
+
+      - name: pip-audit (dependency vulnerabilities)
+        run: |
+          pip install pip-audit
+          pip-audit -r requirements.txt --desc on
+
+      - name: Smoke import gateway
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: python -c "import quantumsafe.api_app as m; print('ok', m.app.title)"

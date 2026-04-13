@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* QuantumSafe — warm dark “audit lab”: stone neutrals, ember signal, editorial type */
+@theme {
+  --font-sans: "Atkinson Hyperlegible", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Victor Mono", ui-monospace, monospace;
+
+  --color-canvas: oklch(0.16 0.018 65);
+  --color-surface: oklch(0.2 0.022 62);
+  --color-elevated: oklch(0.24 0.02 60);
+  --color-border: oklch(0.34 0.018 58);
+  --color-border-strong: oklch(0.42 0.016 58);
+  --color-ink: oklch(0.94 0.012 85);
+  --color-muted: oklch(0.62 0.022 70);
+  --color-faint: oklch(0.48 0.02 68);
+
+  --color-accent: oklch(0.74 0.14 58);
+  --color-accent-muted: oklch(0.62 0.1 55);
+  --color-accent-foreground: oklch(0.18 0.03 55);
+  --color-accent-hover: oklch(0.78 0.15 56);
+
+  --color-hero-bg: oklch(0.13 0.02 58);
+  --color-hero-surface: oklch(0.19 0.024 60);
+  --color-hero-text: oklch(0.95 0.01 85);
+  --color-hero-muted: oklch(0.68 0.03 72);
+
+  --color-sev-critical: oklch(0.62 0.2 25);
+  --color-sev-high: oklch(0.68 0.16 48);
+  --color-sev-medium: oklch(0.72 0.12 78);
+  --color-sev-low: oklch(0.58 0.1 145);
+
+  --shadow-soft: 0 1px 0 oklch(0.08 0.01 60 / 0.5),
+    0 18px 48px oklch(0.05 0.01 60 / 0.35);
+  --shadow-hero: 0 32px 90px oklch(0.06 0.02 55 / 0.55);
+}
+
+@layer utilities {
+  .hero-vault {
+    background-color: var(--color-hero-bg);
+    background-image: radial-gradient(
+        ellipse 120% 80% at 0% 0%,
+        oklch(0.28 0.06 58 / 0.45),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 90% 70% at 100% 100%,
+        oklch(0.22 0.04 260 / 0.2),
+        transparent 50%
+      );
+  }
+
+  .noise-fine {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .motion-safe-reveal {
+    animation: qs-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .motion-safe-reveal-delay-1 {
+    animation-delay: 0.08s;
+  }
+
+  .motion-safe-reveal-delay-2 {
+    animation-delay: 0.16s;
+  }
+
+  .motion-safe-reveal-delay-3 {
+    animation-delay: 0.24s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-reveal,
+  .motion-safe-reveal-delay-1,
+  .motion-safe-reveal-delay-2,
+  .motion-safe-reveal-delay-3 {
+    animation: none;
+  }
+}
+
+@keyframes qs-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  letter-spacing: 0.01em;
+}
+
+::selection {
+  background: oklch(0.45 0.08 58 / 0.45);
+  color: var(--color-hero-text);
+}

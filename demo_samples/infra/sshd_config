@@ -1,0 +1,4 @@
+# Demo sshd snippet — classical algorithms
+HostKey /etc/ssh/ssh_host_rsa_key
+KexAlgorithms ecdh-sha2-nistp256,diffie-hellman-group14-sha256
+PubkeyAcceptedAlgorithms ssh-rsa,ecdsa-sha2-nistp256
