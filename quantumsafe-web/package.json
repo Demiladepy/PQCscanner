@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "react": "^19.0.0",
+    "react": "^19.2.7",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.6.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@tailwindcss/vite": "^4.1.4",
-    "@types/react": "^19.0.0",
+    "@types/react": "^19.2.16",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.4.1",
     "tailwindcss": "^4.1.4",
