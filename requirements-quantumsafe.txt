@@ -1,5 +1,5 @@
 # QuantumSafe — CLI + HTTP gateway + Google AI Studio (Gemini / Gemma)
 google-generativeai>=0.8.0
-fastapi>=0.115.0
+fastapi>=0.137.1
 uvicorn[standard]>=0.32.0
 slowapi>=0.1.9
